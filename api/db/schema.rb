@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_28_204032) do
+ActiveRecord::Schema.define(version: 2018_04_28_205834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +73,20 @@ ActiveRecord::Schema.define(version: 2018_04_28_204032) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.bigint "contestant_id"
+    t.bigint "criterium_id"
+    t.integer "vote_type"
+    t.string "voter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contestant_id"], name: "index_votes_on_contestant_id"
+    t.index ["criterium_id"], name: "index_votes_on_criterium_id"
+  end
+
   add_foreign_key "contestants", "events"
   add_foreign_key "criteria", "events"
   add_foreign_key "events", "users"
+  add_foreign_key "votes", "contestants"
+  add_foreign_key "votes", "criteria"
 end

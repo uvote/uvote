@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  contestant: one
+  criterium: one
+  vote_type: 1
+  voter_id: MyString
+
+two:
+  contestant: two
+  criterium: two
+  vote_type: 1
+  voter_id: MyString
