@@ -8,7 +8,7 @@ class EventsController < ApplicationController
     render json: @events
   end
 
-  # GET /events/1
+  # GET /events/123456
   def show
     render json: @event
   end
@@ -41,7 +41,7 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = Event.find(params[:id])
+      @event = Event.find_by_code(params[:code])
     end
 
     # Only allow a trusted parameter "white list" through.
