@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :events, only: [:show] do
+  resources :events, param: :code, only: [:show] do
     # resources :contestants
     # resources :criteria
     resources :votes, only: [:create, :update]
