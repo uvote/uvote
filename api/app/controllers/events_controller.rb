@@ -10,7 +10,7 @@ class EventsController < ApplicationController
 
   # GET /events/123456
   def show
-    render json: @event
+    render json: @event, include: [ :contestants, :criteria ]
   end
 
   # POST /events
