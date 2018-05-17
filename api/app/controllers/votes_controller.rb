@@ -15,16 +15,12 @@ class VotesController < ApplicationController
 
   # POST /votes
   def create
-    if Vote.exists?(vote_params.slice("criterium_id", "contestant_id", "voter_id").to_h)
-      render status: :conflict
-    else
-      @vote = Vote.new(vote_params)
+    @vote = Vote.new(vote_params)
 
-      if @vote.save
-        render json: @vote, status: :created
-      else
-        render json: @vote.errors, status: :unprocessable_entity
-      end
+    if @vote.save
+      render json: @vote, status: :created
+    else
+      render json: @vote.errors, status: :unprocessable_entity
     end
   end
 
