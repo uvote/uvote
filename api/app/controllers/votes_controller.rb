@@ -15,12 +15,16 @@ class VotesController < ApplicationController
 
   # POST /votes
   def create
-    @vote = Vote.new(vote_params)
-
-    if @vote.save
-      render json: @vote, status: :created, location: @vote
+    if Vote.exists?(vote_params.slice("criterium_id", "contestant_id", "voter_id").to_h)
+      render status: :conflict
     else
-      render json: @vote.errors, status: :unprocessable_entity
+      @vote = Vote.new(vote_params)
+
+      if @vote.save
+        render json: @vote, status: :created
+      else
+        render json: @vote.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -41,7 +45,7 @@ class VotesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_vote
-      @vote = Vote.find(params[:id])
+      @vote = Vote.find_by(vote_params.slice("criterium_id", "contestant_id", "voter_id").to_h)
     end
 
     # Only allow a trusted parameter "white list" through.
